@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbg"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btSignup"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="163dp"
+        android:background="#ffFFC115"
+        android:fontFamily="sans-serif-light"
+        android:text="Sign Up"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/labLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="80dp"
+        android:fontFamily="sans-serif"
+        android:text="[ JoinTy ]"
+        android:textAlignment="center"
+        android:textColor="#ffffffff"
+        android:textSize="56sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_above="@+id/txtPasswordR"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="#66000000"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textColorHint="#88ffffff"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/txtPasswordR"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_above="@+id/btSignin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="35dp"
+        android:background="#66000000"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textColorHint="#88ffffff"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/btSignin"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="163dp"
+        android:background="#000000"
+        android:fontFamily="sans-serif-light"
+        android:text="Sign In"
+        android:textColor="#ffFFC115"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/labSlogan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labLogo"
+        android:layout_marginTop="2dp"
+        android:text="Let's Go Together"
+        android:textAlignment="center"
+        android:textColor="#aa000000"
+        android:textStyle="bold" />
+
+</RelativeLayout>

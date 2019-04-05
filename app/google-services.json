@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "415948826328",
+    "firebase_url": "https://jointy-db.firebaseio.com",
+    "project_id": "jointy-db",
+    "storage_bucket": "jointy-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415948826328:android:7e852ed19aeeb6af",
+        "android_client_info": {
+          "package_name": "com.parzival48.jointy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415948826328-mjje26ue398uok0s3sg9n041h5v802rd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parzival48.jointy",
+            "certificate_hash": "554f1952e6671e2c37555e97aee14d3112e4bd9f"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCUwb7SFLmQvBmx5olQsEWtYu-XQaRpQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415948826328-4i2j839ssa0nr2vdnqae0ihjov9gfluc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
