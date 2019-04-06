@@ -5,8 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.firebase.database.DatabaseReference;
 
 public class SignUpUI extends AppCompatActivity {
+
+    //////////////////////////////////////////////////////////////
+
+    EditText txtUsername,txtPassword,txtLineid;
+    Button btCreateAccount;
+    User newProfile;
+
+    DatabaseReference userDB;
+    //////////////////////////////////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
