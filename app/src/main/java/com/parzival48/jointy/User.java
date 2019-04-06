@@ -4,6 +4,8 @@ public class User {
     private String username;
     private String password;
     private String lineid;
+    private String[] evnentList;
+    private String picture;
 
     public User() {
     }
@@ -30,5 +32,21 @@ public class User {
 
     public void setLineid(String lineid) {
         this.lineid = lineid;
+    }
+
+    public String[] getEvnentList() {
+        return evnentList;
+    }
+
+    public void setEvnentList(String[] evnentList) {
+        this.evnentList = evnentList;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
