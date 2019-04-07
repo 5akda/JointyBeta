@@ -2,11 +2,14 @@ package com.parzival48.jointy;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -92,6 +95,32 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
             public void onClick(View v) {
                 DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(),"time picker");
+            }
+        });
+
+        //Bottom Navigation Config
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_feed:
+                        Intent i1 = new Intent(CreateEventUI.this,MainActivity.class);
+                        startActivity(i1);
+                        break;
+
+                    case R.id.nav_create:
+                        Intent i2 = new Intent(CreateEventUI.this,CreateEventUI.class);
+                        startActivity(i2);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent i3 = new Intent(CreateEventUI.this,SignUpUI.class);
+                        startActivity(i3);
+                        break;
+
+                }
+                return false;
             }
         });
     }

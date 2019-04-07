@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+    android:id="@+id/nav_feed"
+    android:icon="@drawable/home"
+    android:title="Main Feed"/>
+
+    <item
+        android:id="@+id/nav_create"
+        android:icon="@drawable/add"
+        android:title="New Event"/>
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/profile"
+        android:title="Profile"/>
+</menu>

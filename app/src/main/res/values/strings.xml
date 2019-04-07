@@ -2,4 +2,9 @@
     <string name="app_name">Jointy Beta</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_feedtest">feedtest</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_jointy_main_ui">jointyMainUI</string>
+    <string name="title_activity_temp">temp</string>
 </resources>
