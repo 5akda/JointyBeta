@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/timeView"
             android:layout_width="wrap_content"
@@ -21,7 +22,7 @@
             android:text="HH:MM"
             android:textAlignment="textStart"
             android:textColor="#aaffffff"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView11"
@@ -33,7 +34,7 @@
             android:text="Contact, Restrictions, etc. 0 - 140 Characters"
             android:textAlignment="textStart"
             android:textColor="#aaffffff"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <EditText
             android:id="@+id/txtEventName"
@@ -84,7 +85,7 @@
             android:layout_marginTop="20dp"
             android:text="[ Create Event ]"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="#ffFFC115"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -101,7 +102,7 @@
             android:text="5 - 30 Characters"
             android:textAlignment="textStart"
             android:textColor="#aaffffff"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/textView"
@@ -113,7 +114,7 @@
             android:text="5 - 30 Characters"
             android:textAlignment="textStart"
             android:textColor="#aaffffff"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/btCreateEvent"
@@ -123,7 +124,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="30dp"
             android:background="#ffFFC115"
             android:text="Create Event"
@@ -152,17 +153,17 @@
 
         <Button
             android:id="@+id/btDate"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="145dp"
+            android:layout_height="32dp"
             android:layout_below="@+id/textView"
             android:layout_alignParentStart="true"
             android:layout_marginStart="40dp"
             android:layout_marginTop="14dp"
-            android:background="#aaffffff"
+            android:background="@color/colorAccent"
             android:text=" Date Picker "
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/dateView"
@@ -175,19 +176,19 @@
             android:text="MM/DD/YY"
             android:textAlignment="textStart"
             android:textColor="#aaffffff"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btTime"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="145dp"
+            android:layout_height="32dp"
             android:layout_below="@+id/btDate"
             android:layout_alignParentStart="true"
             android:layout_marginStart="40dp"
             android:layout_marginTop="14dp"
-            android:background="#aaffffff"
+            android:background="@color/colorAccent"
             android:text=" Time Picker "
-            android:textSize="16sp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -198,7 +199,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:background="?android:attr/windowBackground"
+        android:background="#bbffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.logging.Handler;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText txtusername,txtpassword;
@@ -64,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
                     Snackbar.make(v, "Sign in Successfully", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    startActivity(new Intent(MainActivity.this, CreateEventUI.class));
+                    Intent i = new Intent(MainActivity.this,FeedUI.class);
+                    i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(i);
                 }
                 else{
                     Snackbar.make(v, "Incorrect Username or Password", Snackbar.LENGTH_LONG)
@@ -92,4 +96,5 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
+
 }
