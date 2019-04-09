@@ -5,7 +5,7 @@ public class Event {
     private String loaction;
     private String date;
     private String time;
-    private String descpition;
+    private String description;
     private String host;
     private String contact;
     private String[] member;
@@ -69,11 +69,11 @@ public class Event {
         this.member = member;
     }
 
-    public String getDescpition() {
-        return descpition;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescpition(String descpition) {
-        this.descpition = descpition;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

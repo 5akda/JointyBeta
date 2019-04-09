@@ -67,7 +67,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
 
                 newEvent.setName(txtEventName.getText().toString().trim());
                 newEvent.setLoaction(txtLocation.getText().toString().trim());
-                newEvent.setDescpition(txtDecription.getText().toString().trim());
+                newEvent.setDescription(txtDecription.getText().toString().trim());
                 newEvent.setDate(date);
                 newEvent.setTime(time);
                 newEvent.setHost(ActiveStatus.username);
