@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                             serverLine = dataSnapshot.child("userdata").child(username).child("lineid").getValue().toString();
                             ActiveStatus.username = username;
                             ActiveStatus.lineid = serverLine;
+
+
                         }
                         catch (Exception e){
                             serverPass = " ";
@@ -63,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 if(userExist && match(password,serverPass)){
-
-                    Snackbar.make(v, "Sign in Successfully", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
                     Intent i = new Intent(MainActivity.this,FeedUI.class);
                     i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
@@ -96,5 +97,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
+
+
 
 }

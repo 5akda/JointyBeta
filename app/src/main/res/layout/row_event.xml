@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:id="@+id/parent_layout"
+    android:elevation="60dp">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:background="#aa000000">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/ename"
+            android:text="After Lunch Karaoke"
+            android:textColor="#FFD969"
+            android:textSize="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/elocation"
+            android:text="Mega Bangna"
+            android:textColor="#7AE274"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/edate"
+            android:text="MM/DD/YY - HH:MM"
+            android:textColor="#FF5E5E"
+            android:textSize="16dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/ehost"
+            android:text="User6969"
+            android:textColor="#30D5FF"
+            android:textSize="16dp"/>
+
+        <Button
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/joinbt"
+            android:text="Join !"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

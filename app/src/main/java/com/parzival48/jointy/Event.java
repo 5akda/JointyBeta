@@ -13,6 +13,14 @@ public class Event {
     public Event() {
     }
 
+    public Event(String name, String loaction, String date, String time, String host) {
+        this.name = name;
+        this.loaction = loaction;
+        this.date = date;
+        this.time = time;
+        this.host = host;
+    }
+
     public String getName() {
         return name;
     }
