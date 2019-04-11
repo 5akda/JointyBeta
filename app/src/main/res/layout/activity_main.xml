@@ -29,7 +29,6 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="30dp"
         android:background="#00000000"
-        android:fontFamily="sans-serif-light"
         android:text="* Create New Account *"
         android:textColor="#ffffff"
         android:textSize="18sp"
@@ -41,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="60dp"
-        android:fontFamily="sans-serif"
         android:text="[ JoinTy ]"
         android:textAlignment="center"
         android:textColor="#FDC015"
@@ -60,7 +58,6 @@
         android:layout_marginEnd="35dp"
         android:background="#66000000"
         android:ems="10"
-        android:fontFamily="sans-serif-light"
         android:hint="Username"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -80,7 +77,6 @@
         android:layout_marginEnd="35dp"
         android:background="#66000000"
         android:ems="10"
-        android:fontFamily="sans-serif-light"
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
@@ -99,7 +95,6 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="35dp"
         android:background="#FFC115"
-        android:fontFamily="sans-serif-light"
         android:text="Sign In"
         android:textColor="#000000"
         android:textSize="16sp" />
@@ -113,7 +108,6 @@
         android:text="Trial and Error by CE#56, KMITL"
         android:textAlignment="center"
         android:textColor="#aaffffff"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

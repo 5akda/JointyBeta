@@ -5,6 +5,7 @@ public class User {
     private String password;
     private String lineid;
     private String picture;
+    private String eventList;
 
     public User() {
     }
@@ -39,5 +40,13 @@ public class User {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(String eventList) {
+        this.eventList = eventList;
     }
 }

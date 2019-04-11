@@ -12,11 +12,95 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textViewProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:text="[ Profile ]"
+            android:textAlignment="center"
+            android:textColor="#ffFFC115"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewProfile"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:text="My Username :"
+            android:textAlignment="textStart"
+            android:textColor="#aaffffff"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_user"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="My Line ID :"
+            android:textAlignment="textStart"
+            android:textColor="#aaffffff"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_line"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="My Event :"
+            android:textAlignment="textStart"
+            android:textColor="#aaffffff"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/profile_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView31"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:text="parzival48"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profile_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView10"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:text="sakda-apple"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profile_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
-            android:textColor="#ffffff" />
+            android:layout_below="@+id/textView13"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:text="# Captain Marvel รอบดึก\n    Mega Ciniplex\n    4/10/19 - 16:30"
+            android:textColor="#ffFFC115"
+            android:textSize="18sp" />
+
+
     </RelativeLayout>
 
     <android.support.design.widget.BottomNavigationView

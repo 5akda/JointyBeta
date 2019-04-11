@@ -38,6 +38,7 @@ public class SignUpUI extends AppCompatActivity {
                 newProfile.setUsername(txtUsername.getText().toString().trim());
                 newProfile.setPassword(txtPassword.getText().toString().trim());
                 newProfile.setLineid(txtLineid.getText().toString().trim());
+                newProfile.setEventList("");
                 jointyDB.child("userdata").child(newProfile.getUsername()).setValue(newProfile);
                 Snackbar.make(v, "Create Profile Successfully", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

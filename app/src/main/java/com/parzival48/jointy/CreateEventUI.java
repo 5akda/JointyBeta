@@ -33,6 +33,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
     Event newEvent;
     String date,time;
+    String userEventList;
     long numOfEvent;
 
     @Override
@@ -49,6 +50,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 numOfEvent = dataSnapshot.child("eventdata").getChildrenCount();
+                userEventList = dataSnapshot.child("userdata").child(ActiveStatus.username).child("eventList").getValue().toString();
             }
 
             @Override
@@ -73,7 +75,12 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 newEvent.setHost(ActiveStatus.username);
                 newEvent.setContact(ActiveStatus.lineid);
                 jointyDB.child("eventdata").child(String.valueOf(numOfEvent+1)).setValue(newEvent);
-                jointyDB.child("userdata").child(ActiveStatus.username).child("eventlist").child(String.valueOf(numOfEvent+1));
+
+                userEventList = userEventList+"# "+newEvent.getName()+"\n";
+                userEventList = userEventList+"   "+newEvent.getLoaction()+"\n";
+                userEventList = userEventList+"   "+newEvent.getDate()+" - "+newEvent.getTime()+"\n";
+                jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(userEventList);
+
 
                 Snackbar.make(v, "Create Event Successfully", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -148,7 +155,12 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         TextView txtTime = (TextView)findViewById(R.id.timeView);
-        txtTime.setText(hourOfDay+":"+minute);
+        if(minute == 0){
+            txtTime.setText(hourOfDay+":00");
+        }
+        else{
+            txtTime.setText(hourOfDay+":"+minute);
+        }
         time = txtTime.getText().toString().trim();
     }
 }

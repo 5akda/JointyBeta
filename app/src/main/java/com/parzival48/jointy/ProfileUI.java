@@ -7,8 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileUI extends AppCompatActivity {
+
+    DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
+    String userEventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +30,28 @@ public class ProfileUI extends AppCompatActivity {
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
+
+        jointyDB.keepSynced(true);
+
+        jointyDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userEventList = dataSnapshot.child("userdata").child(ActiveStatus.username).child("eventList").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        TextView username = (TextView)findViewById(R.id.profile_user);
+        username.setText(ActiveStatus.username);
+        TextView lineid = (TextView)findViewById(R.id.profile_line);
+        lineid.setText(ActiveStatus.lineid);
+        TextView event = (TextView)findViewById(R.id.profile_event);
+        event.setText(userEventList);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -91,18 +91,18 @@
 
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtEventName"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="2dp"
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtEventName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="2dp"
 
-            android:text="5 - 30 Characters"
-            android:textAlignment="textStart"
-            android:textColor="#aaffffff"
-            android:textSize="10sp" />
+        android:text="5 - 30 Characters"
+        android:textAlignment="textStart"
+        android:textColor="#aaffffff"
+        android:textSize="10sp" />
 
         <TextView
             android:id="@+id/textView"
