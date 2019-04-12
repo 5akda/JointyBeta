@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,7 +87,8 @@ public class FeedUI extends AppCompatActivity {
                 viewHolder.setName(model.getName());
                 viewHolder.setLocation(model.getLoaction());
                 viewHolder.setDateTime(model.getDate()+" - "+model.getTime());
-                viewHolder.setHost(model.getHost());
+                viewHolder.setHost("Host: " + model.getHost());
+                viewHolder.setContact("LINE ID: "+model.getContact());
             }
         };
         mEventList.setAdapter(firebaseRecyclerAdapter);
@@ -99,21 +101,26 @@ public class FeedUI extends AppCompatActivity {
             mView = itemView;
         }
         public void setName(String name){
-            TextView t_name = (TextView)mView.findViewById(R.id.ename);
-            t_name.setText(name);
+            TextView t = (TextView)mView.findViewById(R.id.ename);
+            t.setText(name);
         }
         public void setLocation(String location){
-            TextView t_name = (TextView)mView.findViewById(R.id.elocation);
-            t_name.setText(location);
+            TextView t = (TextView)mView.findViewById(R.id.elocation);
+            t.setText(location);
         }
         public void setDateTime(String datetime){
-            TextView t_name = (TextView)mView.findViewById(R.id.edate);
-            t_name.setText(datetime);
+            TextView t = (TextView)mView.findViewById(R.id.edate);
+            t.setText(datetime);
         }
         public void setHost(String host){
-            TextView t_name = (TextView)mView.findViewById(R.id.ehost);
-            t_name.setText(host);
+            TextView t = (TextView)mView.findViewById(R.id.ehost);
+            t.setText(host);
+        }
+        public void setContact(String contact){
+            TextView t = (TextView)mView.findViewById(R.id.econtact);
+            t.setText(contact);
         }
     }
+
 
 }
