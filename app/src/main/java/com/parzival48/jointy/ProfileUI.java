@@ -15,28 +15,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class ProfileUI extends AppCompatActivity {
 
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
-    String userEventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_ui);
 
-        //Bottom Navigation Config
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
-        menuItem.setChecked(true);
-
-        jointyDB.keepSynced(true);
-
         jointyDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                userEventList = dataSnapshot.child("userdata").child(ActiveStatus.username).child("eventList").getValue().toString();
+                ActiveStatus.eventList = dataSnapshot.child("userdata").child(ActiveStatus.username).child("eventList").getValue().toString();
             }
 
             @Override
@@ -50,8 +42,13 @@ public class ProfileUI extends AppCompatActivity {
         TextView lineid = (TextView)findViewById(R.id.profile_line);
         lineid.setText(ActiveStatus.lineid);
         TextView event = (TextView)findViewById(R.id.profile_event);
-        event.setText(userEventList);
+        event.setText(ActiveStatus.eventList);
 
+        //Bottom Navigation Config
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

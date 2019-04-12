@@ -94,11 +94,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView13"
             android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
-            android:text="# Captain Marvel รอบดึก\n    Mega Ciniplex\n    4/10/19 - 16:30"
+            android:layout_marginEnd="30dp"
+            android:text="#"
             android:textColor="#ffFFC115"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
 
     </RelativeLayout>

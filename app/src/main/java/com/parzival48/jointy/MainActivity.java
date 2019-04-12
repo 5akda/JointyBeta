@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     EditText txtusername,txtpassword;
-    String username,password,serverPass,serverLine;
+    String username,password,serverPass,serverLine,sList;
     boolean userExist;
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             serverPass = dataSnapshot.child("userdata").child(username).child("password").getValue().toString();
                             serverLine = dataSnapshot.child("userdata").child(username).child("lineid").getValue().toString();
+                            sList = dataSnapshot.child("userdata").child(username).child("eventList").getValue().toString();
+                            ActiveStatus.eventList = sList;
                             ActiveStatus.username = username;
                             ActiveStatus.lineid = serverLine;
 
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 if(userExist && match(password,serverPass)){
                     Intent i = new Intent(MainActivity.this,FeedUI.class);
                     i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    Toast.makeText(MainActivity.this,"Welcome Back!",Toast.LENGTH_LONG).show();
                     startActivity(i);
                 }
                 else{
