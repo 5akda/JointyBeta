@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,7 +80,8 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 userEventList = userEventList+"# "+newEvent.getName()+"\n";
                 userEventList = userEventList+"   "+newEvent.getLoaction()+"\n";
                 userEventList = userEventList+"   "+newEvent.getDate()+" - "+newEvent.getTime()+"\n";
-                jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(userEventList);
+                ActiveStatus.eventList = ActiveStatus.eventList+userEventList;
+                jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
 
 
                 Snackbar.make(v, "Create Event Successfully", Snackbar.LENGTH_LONG)
@@ -162,5 +164,26 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
             txtTime.setText(hourOfDay+":"+minute);
         }
         time = txtTime.getText().toString().trim();
+    }
+
+    //Config Press Back Again To Logout
+    private long backPressTime;
+    private Toast backToast;
+    @Override
+    public void onBackPressed() {
+
+        if(backPressTime+2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        }
+        else{
+            backToast = Toast.makeText(getBaseContext(),"Press Back Again to Sign Out"
+                    ,Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+        backPressTime = System.currentTimeMillis();
+
     }
 }

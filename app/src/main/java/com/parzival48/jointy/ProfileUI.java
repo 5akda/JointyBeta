@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,5 +76,26 @@ public class ProfileUI extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    //Config Press Back Again To Logout
+    private long backPressTime;
+    private Toast backToast;
+    @Override
+    public void onBackPressed() {
+
+        if(backPressTime+2000 > System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        }
+        else{
+            backToast = Toast.makeText(getBaseContext(),"Press Back Again to Sign Out"
+                    ,Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+        backPressTime = System.currentTimeMillis();
+
     }
 }

@@ -1,6 +1,7 @@
 package com.parzival48.jointy;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -48,9 +49,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         userExist = dataSnapshot.child("userdata").child(username).exists();
                         try{
-                            serverPass = dataSnapshot.child("userdata").child(username).child("password").getValue().toString();
-                            serverLine = dataSnapshot.child("userdata").child(username).child("lineid").getValue().toString();
-                            sList = dataSnapshot.child("userdata").child(username).child("eventList").getValue().toString();
+                            serverPass = dataSnapshot.child("userdata").child(username)
+                                    .child("password").getValue().toString();
+
+                            serverLine = dataSnapshot.child("userdata").child(username)
+                                    .child("lineid").getValue().toString();
+
+                            sList = dataSnapshot.child("userdata").child(username)
+                                    .child("eventList").getValue().toString();
+
                             ActiveStatus.eventList = sList;
                             ActiveStatus.username = username;
                             ActiveStatus.lineid = serverLine;
@@ -69,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
                 if(userExist && match(password,serverPass)){
                     Intent i = new Intent(MainActivity.this,FeedUI.class);
                     i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    Toast.makeText(MainActivity.this,"Welcome Back!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Welcome, "+ActiveStatus.username+" !"
+                            ,Toast.LENGTH_LONG).show();
+
                     startActivity(i);
                 }
                 else{
@@ -98,7 +107,5 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-
-
 
 }

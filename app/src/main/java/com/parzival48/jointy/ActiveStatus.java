@@ -7,4 +7,5 @@ public class ActiveStatus {
     public static String lineid;
     public static String status;
     public static String eventList;
+    public static Event eInfo;
 }
