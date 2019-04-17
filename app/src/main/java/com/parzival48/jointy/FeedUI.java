@@ -96,7 +96,7 @@ public class FeedUI extends AppCompatActivity {
                 viewHolder.setHost("Host: "+model.getHost());
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setContact("LINE ID: "+model.getContact());
-                if(!(model.getHost().equals(ActiveStatus.username))){
+                if(!(model.getHost().equals(ActiveStatus.username) || (model.getHost().equals("Admin")))){
                     viewHolder.configClickCard(model);
                 }
             }

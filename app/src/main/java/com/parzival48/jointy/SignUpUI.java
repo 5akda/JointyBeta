@@ -14,7 +14,7 @@ public class SignUpUI extends AppCompatActivity {
 
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
 
-    EditText txtUsername,txtPassword,txtLineid;
+    EditText txtUsername,txtPassword,txtLineid,txtConfirm;
     User newProfile;
 
     @Override
@@ -27,6 +27,7 @@ public class SignUpUI extends AppCompatActivity {
         txtUsername = (EditText)findViewById(R.id.txtUsernameR);
         txtPassword = (EditText)findViewById(R.id.txtPasswordR);
         txtLineid = (EditText)findViewById(R.id.txtLineR);
+        txtConfirm = (EditText)findViewById(R.id.txtConfirmR);
         newProfile = new User();
 
         Button CreateButton = (Button) findViewById(R.id.btCreateAccount);
@@ -35,13 +36,23 @@ public class SignUpUI extends AppCompatActivity {
             public void onClick(View v) {
                 Snackbar.make(v, "Loading ...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
                 newProfile.setUsername(txtUsername.getText().toString().trim());
                 newProfile.setPassword(txtPassword.getText().toString().trim());
                 newProfile.setLineid(txtLineid.getText().toString().trim());
                 newProfile.setEventList("");
-                jointyDB.child("userdata").child(newProfile.getUsername()).setValue(newProfile);
-                Snackbar.make(v, "Create Profile Successfully", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                String confirm = txtConfirm.getText().toString().trim();
+                String checkValid = valid(newProfile,confirm);
+                if(!checkValid.equals("")){
+                    Snackbar.make(v, "Please Re-Check "+checkValid, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else{
+                    jointyDB.child("userdata").child(newProfile.getUsername()).setValue(newProfile);
+                    Snackbar.make(v, "Create Profile Successfully", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
@@ -57,6 +68,37 @@ public class SignUpUI extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private String valid(User u,String confirm){
+        String usr = "Username ",
+                psw = "Password ",
+                line = "LINE ID";
+
+        if(u.getUsername().length()>3 && u.getUsername().length()<21){
+            if(u.getUsername().matches("[A-Za-z0-9]+")){
+                char ch = u.getUsername().charAt(0);
+                if((ch>='A' && ch<='Z') || (ch>='a' && ch<='z')){
+                    usr = "";
+                }
+            }
+        }
+
+        if(u.getPassword().equals(confirm)){
+            if(u.getPassword().length()>3 && u.getPassword().length()<21){
+                if(u.getPassword().matches("[A-Za-z0-9#$!_]+")){
+                    psw = "";
+                }
+            }
+        }
+
+        if(u.getLineid().length()>1 && u.getLineid().length()<31){
+            if(u.getLineid().matches("[A-Za-z0-9,_,-]+")){
+                line = "";
+            }
+        }
+
+        return(usr+psw+line);
     }
 
 

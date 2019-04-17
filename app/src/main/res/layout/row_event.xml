@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="#55FCFCFC"
+        android:background="#33000000"
         android:orientation="vertical">
 
         <TextView
@@ -22,7 +22,7 @@
             android:layout_marginLeft="9dp"
             android:layout_marginTop="5dp"
             android:text="After Lunch Karaoke"
-            android:textColor="#000000"
+            android:textColor="#E75151"
             android:textSize="25dp"
             android:textStyle="bold" />
 
