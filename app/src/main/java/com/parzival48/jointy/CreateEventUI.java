@@ -196,6 +196,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
 
     }
 
+    // Input Validation
     private String validE(String nameE, String locatE, String descE){
         boolean nam = false,
                 loc = false,
@@ -210,7 +211,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 if(des){
                     return "";
                 }
-                else return "Please Re-Check description";
+                else return "Please Re-Check Description";
             }
             else return "Please Re-Check Location";
         }

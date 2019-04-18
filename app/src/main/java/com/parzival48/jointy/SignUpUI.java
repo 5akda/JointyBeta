@@ -64,7 +64,6 @@ public class SignUpUI extends AppCompatActivity {
     }
 
 
-
     private void configSignInButton(){
         Button SignInButton = (Button) findViewById(R.id.btLogin);
         SignInButton.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +73,9 @@ public class SignUpUI extends AppCompatActivity {
             }
         });
     }
+
+
+    // Input Validation
 
     private String validU(User u,String confirm){
         boolean usr = false,
