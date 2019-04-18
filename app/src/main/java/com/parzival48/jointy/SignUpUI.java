@@ -1,5 +1,6 @@
 package com.parzival48.jointy;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignUpUI extends AppCompatActivity {
 
@@ -16,6 +20,7 @@ public class SignUpUI extends AppCompatActivity {
 
     EditText txtUsername,txtPassword,txtLineid,txtConfirm;
     User newProfile;
+    boolean exist = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,9 @@ public class SignUpUI extends AppCompatActivity {
                 newProfile.setEventList("");
 
                 String confirm = txtConfirm.getText().toString().trim();
-                String checkValid = valid(newProfile,confirm);
+                String checkValid = validU(newProfile,confirm);
                 if(!checkValid.equals("")){
-                    Snackbar.make(v, "Please Re-Check "+checkValid, Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, checkValid, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
                 else{
@@ -70,35 +75,51 @@ public class SignUpUI extends AppCompatActivity {
         });
     }
 
-    private String valid(User u,String confirm){
-        String usr = "Username ",
-                psw = "Password ",
-                line = "LINE ID";
+    private String validU(User u,String confirm){
+        boolean usr = false,
+                psw = false,
+                line = false;
 
         if(u.getUsername().length()>3 && u.getUsername().length()<21){
             if(u.getUsername().matches("[A-Za-z0-9]+")){
-                char ch = u.getUsername().charAt(0);
-                if((ch>='A' && ch<='Z') || (ch>='a' && ch<='z')){
-                    usr = "";
-                }
+                final String username = u.getUsername();
+                jointyDB.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        exist = dataSnapshot.child("userdata").child(username).exists();
+                        exist = dataSnapshot.child("userdata").child(username).exists();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+                usr = !(exist);
             }
         }
 
         if(u.getPassword().equals(confirm)){
             if(u.getPassword().length()>3 && u.getPassword().length()<21){
-                if(u.getPassword().matches("[A-Za-z0-9#$!_]+")){
-                    psw = "";
-                }
+                psw = (u.getPassword().matches("[A-Za-z0-9#$!_]+"));
+
             }
         }
 
         if(u.getLineid().length()>1 && u.getLineid().length()<31){
-            if(u.getLineid().matches("[A-Za-z0-9,_,-]+")){
-                line = "";
-            }
+            line = (u.getLineid().matches("[A-Za-z0-9,_,-]+"));
         }
 
-        return(usr+psw+line);
+        if(usr){
+            if(psw){
+                if(line){
+                    return "";
+                }
+                else return "Please Re-Check Your LINE ID";
+            }
+            else return "Please Re-Check Your Password";
+        }
+        else return "Please Re-Check Your Username";
+
     }
 
 

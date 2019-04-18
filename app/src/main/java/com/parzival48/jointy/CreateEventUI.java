@@ -75,17 +75,26 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 newEvent.setTime(time);
                 newEvent.setHost(ActiveStatus.username);
                 newEvent.setContact(ActiveStatus.lineid);
-                jointyDB.child("eventdata").child(String.valueOf(numOfEvent+1)).setValue(newEvent);
 
-                userEventList = userEventList+"# "+newEvent.getName()+"\n";
-                userEventList = userEventList+"   "+newEvent.getLoaction()+"\n";
-                userEventList = userEventList+"   "+newEvent.getDate()+" - "+newEvent.getTime()+"\n";
-                ActiveStatus.eventList = ActiveStatus.eventList+userEventList;
-                jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
+                String validation = validE(newEvent.getName(),newEvent.getLoaction(),newEvent.getDescription());
+                if(validation.equals("")){
 
+                    jointyDB.child("eventdata").child(String.valueOf(numOfEvent+1)).setValue(newEvent);
 
-                Snackbar.make(v, "Create Event Successfully", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    userEventList = userEventList+"# "+newEvent.getName()+"\n";
+                    userEventList = userEventList+"   "+newEvent.getLoaction()+"\n";
+                    userEventList = userEventList+"   "+newEvent.getDate()+" - "+newEvent.getTime()+"\n";
+                    ActiveStatus.eventList = ActiveStatus.eventList+userEventList;
+                    jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
+
+                    Snackbar.make(v, "Create Event Successfully", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else{
+                    Snackbar.make(v, validation, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
             }
         });
 
@@ -186,4 +195,26 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         backPressTime = System.currentTimeMillis();
 
     }
+
+    private String validE(String nameE, String locatE, String descE){
+        boolean nam = false,
+                loc = false,
+                des = false;
+
+        nam = (nameE.length()>4 && nameE.length()<31);
+        loc = (nameE.length()>4 && nameE.length()<31);
+        des = (nameE.length()>=0 && nameE.length()<51);
+
+        if(nam){
+            if(loc){
+                if(des){
+                    return "";
+                }
+                else return "Please Re-Check description";
+            }
+            else return "Please Re-Check Location";
+        }
+        else return "Please Re-Check Name";
+    }
+
 }
