@@ -89,15 +89,16 @@ public class FeedUI extends AppCompatActivity {
                 (Event.class,R.layout.row_event,EventHolder.class,jointyDB) {
             @Override
             protected void populateViewHolder(EventHolder viewHolder, Event model, int position) {
-
-                viewHolder.setName(model.getName());
-                viewHolder.setLocation(model.getLoaction());
-                viewHolder.setDateTime(model.getDate()+" - "+model.getTime());
-                viewHolder.setHost("Host: "+model.getHost());
-                viewHolder.setDescription(model.getDescription());
-                viewHolder.setContact("LINE ID: "+model.getContact());
-                if(!(model.getHost().equals(ActiveStatus.username) || (model.getHost().equals("Admin")))){
-                    viewHolder.configClickCard(model);
+                if(!(model.getHost().equals("Admin"))){
+                    viewHolder.setName(model.getName());
+                    viewHolder.setLocation(model.getLoaction());
+                    viewHolder.setDateTime(model.getDate()+" - "+model.getTime());
+                    viewHolder.setHost("Host: "+model.getHost());
+                    viewHolder.setDescription(model.getDescription());
+                    viewHolder.setContact("LINE ID: "+model.getContact());
+                    if(!(model.getHost().equals(ActiveStatus.username) || (model.getHost().equals("Admin")))){
+                        viewHolder.configClickCard(model);
+                    }
                 }
             }
         };

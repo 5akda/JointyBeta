@@ -8,4 +8,5 @@ public class ActiveStatus {
     public static String status;
     public static String eventList;
     public static Event eInfo;
+    public static String tempEventName;
 }
