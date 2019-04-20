@@ -68,6 +68,8 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 Snackbar.make(v, "Loading ...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
+                String eventCode = String.valueOf(numOfEvent+1);
+
                 newEvent.setName(txtEventName.getText().toString().trim());
                 newEvent.setLoaction(txtLocation.getText().toString().trim());
                 newEvent.setDescription(txtDecription.getText().toString().trim());
@@ -75,20 +77,20 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 newEvent.setTime(time);
                 newEvent.setHost(ActiveStatus.username);
                 newEvent.setContact(ActiveStatus.lineid);
+                newEvent.setCode(eventCode);
 
                 String validation = validE(newEvent.getName(),newEvent.getLoaction(),newEvent.getDescription());
                 if(validation.equals("")){
 
-                    jointyDB.child("eventdata").child(String.valueOf(numOfEvent+1)).setValue(newEvent);
+                    jointyDB.child("eventdata").child(eventCode).setValue(newEvent);
 
-                    userEventList = userEventList+"# "+newEvent.getName()+"\n";
-                    userEventList = userEventList+"   "+newEvent.getLoaction()+"\n";
-                    userEventList = userEventList+"   "+newEvent.getDate()+" - "+newEvent.getTime()+"\n";
-                    ActiveStatus.eventList = ActiveStatus.eventList+userEventList;
+                    ActiveStatus.eventList = ActiveStatus.eventList+eventCode+"x";
                     jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
 
                     Snackbar.make(v, "Create Event Successfully", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    ActiveStatus.tempEventName = newEvent.getName();
                 }
                 else{
                     Snackbar.make(v, validation, Snackbar.LENGTH_LONG)
@@ -201,8 +203,9 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         boolean nam = false,
                 loc = false,
                 des = false;
-
-        nam = (nameE.length()>4 && nameE.length()<31);
+        if(!nameE.equals(ActiveStatus.tempEventName)){
+            nam = (nameE.length()>4 && nameE.length()<31);
+        }
         loc = (nameE.length()>4 && nameE.length()<31);
         des = (nameE.length()>=0 && nameE.length()<51);
 

@@ -20,30 +20,16 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileUI extends AppCompatActivity {
 
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
+    String eventInfo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_ui);
 
-        jointyDB.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ActiveStatus.eventList = dataSnapshot.child("userdata").child(ActiveStatus.username).child("eventList").getValue().toString();
-            }
+        getUserInfo();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
-        TextView username = (TextView)findViewById(R.id.profile_user);
-        username.setText(ActiveStatus.username);
-        TextView lineid = (TextView)findViewById(R.id.profile_line);
-        lineid.setText(ActiveStatus.lineid);
-        TextView event = (TextView)findViewById(R.id.profile_event);
-        event.setText(ActiveStatus.eventList);
 
         //Bottom Navigation Config
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
@@ -98,4 +84,66 @@ public class ProfileUI extends AppCompatActivity {
         backPressTime = System.currentTimeMillis();
 
     }
+
+    //Get User Event List
+    private void getUserInfo(){
+        jointyDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ActiveStatus.eventList = dataSnapshot.child("userdata").child(ActiveStatus.username).child("eventList").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        ActiveStatus.arrayOfEvents = ActiveStatus.eventList.split("x");
+        showTextView();
+
+    }
+
+    //Show Status from Active User
+    private void showTextView(){
+        TextView username = (TextView)findViewById(R.id.profile_user);
+        username.setText(ActiveStatus.username);
+        TextView lineid = (TextView)findViewById(R.id.profile_line);
+        lineid.setText(ActiveStatus.lineid);
+        TextView event = (TextView)findViewById(R.id.profile_event);
+        event.setText("Loading ...");
+
+        String myEvents = "";
+        int num = ActiveStatus.arrayOfEvents.length;
+        for(int i=0; i<num; i++){
+            myEvents = myEvents+eventDescription(ActiveStatus.arrayOfEvents[i]);
+            Toast.makeText(ProfileUI.this,ActiveStatus.arrayOfEvents[i],Toast.LENGTH_LONG).show();
+        }
+
+        event.setText(myEvents);
+    }
+
+    //Get Event Description
+    private String eventDescription(final String code){
+        jointyDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                eventInfo += dataSnapshot.child("eventdata").child("2").child("name").getValue().toString();
+                eventInfo += "\n    ";
+                eventInfo += dataSnapshot.child("eventdata").child("2").child("loaction").getValue().toString();
+                eventInfo += "\n    ";
+                eventInfo += dataSnapshot.child("eventdata").child("2").child("date").getValue().toString();
+                eventInfo += " - ";
+                eventInfo += dataSnapshot.child("eventdata").child("2").child("time").getValue().toString();
+                eventInfo += "\n";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return(eventInfo);
+
+    }
+
 }

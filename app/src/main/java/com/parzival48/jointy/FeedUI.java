@@ -150,16 +150,13 @@ public class FeedUI extends AppCompatActivity {
                 public void onClick(View v) {
                     DatabaseReference jointyDB;
                     jointyDB = FirebaseDatabase.getInstance().getReference();
-                    String userEventList = "";
-                    userEventList = userEventList+"# "+model.getName()+"\n";
-                    userEventList = userEventList+"   "+model.getLoaction()+"\n";
-                    userEventList = userEventList+"   "+model.getDate()+" - "+model.getTime()+"\n";
-                    ActiveStatus.eventList = ActiveStatus.eventList+userEventList;
+                    ActiveStatus.eventList = ActiveStatus.eventList+model.getCode()+"x";
                     jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
                     Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
                 }
+
             });
 
 
@@ -186,4 +183,5 @@ public class FeedUI extends AppCompatActivity {
         backPressTime = System.currentTimeMillis();
 
     }
+
 }

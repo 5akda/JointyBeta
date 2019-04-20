@@ -9,6 +9,7 @@ public class Event {
     private String host;
     private String contact;
     private String[] member;
+    private String code;
 
     public Event() {
     }
@@ -83,5 +84,13 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
