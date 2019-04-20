@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 if(userExist && match(password,serverPass)){
+                    ActiveStatus.tempCode = "";
                     Intent i = new Intent(MainActivity.this,FeedUI.class);
                     i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
                     Toast.makeText(MainActivity.this,"Welcome, "+ActiveStatus.username+" !"

@@ -11,4 +11,5 @@ public class ActiveStatus {
     public static String tempEventName;
     public static String[] arrayOfEvents;
     public static String tempString;
+    public static String tempCode;
 }

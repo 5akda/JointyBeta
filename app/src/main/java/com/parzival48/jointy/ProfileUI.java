@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileUI extends AppCompatActivity {
 
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
-    String eventInfo = "";
     String loading = "Loading ...";
 
     @Override
@@ -30,6 +29,7 @@ public class ProfileUI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_ui);
 
+        //Main Works
         getUserInfo();
         showTextView();
 
@@ -103,7 +103,6 @@ public class ProfileUI extends AppCompatActivity {
             }
         });
         ActiveStatus.arrayOfEvents = ActiveStatus.eventList.split("x");
-
     }
 
     //Show Status from Active User
@@ -117,11 +116,15 @@ public class ProfileUI extends AppCompatActivity {
 
         String myEvents = "";
         int num = ActiveStatus.arrayOfEvents.length;
+        String same = "";
         for(int i=0; i<num; i++){
-            myEvents = myEvents+eventDescription(ActiveStatus.arrayOfEvents[i]);
-            ActiveStatus.tempString = "";
+            if(!same.equals(ActiveStatus.arrayOfEvents[i])){
+                myEvents = myEvents+eventDescription(ActiveStatus.arrayOfEvents[i]);
+                ActiveStatus.tempString = "";
+                same = ActiveStatus.arrayOfEvents[i];
+            }
         }
-        if(!(myEvents.equals("null") || myEvents.length()>365)){
+        if(!myEvents.equals("null") && myEvents.length()<365){
             event.setText(myEvents);
         }
         else{
@@ -144,7 +147,7 @@ public class ProfileUI extends AppCompatActivity {
                     ActiveStatus.tempString += dataSnapshot.child("eventdata").child(code).child("date").getValue().toString();
                     ActiveStatus.tempString += " - ";
                     ActiveStatus.tempString += dataSnapshot.child("eventdata").child(code).child("time").getValue().toString();
-                    ActiveStatus.tempString += "\n\n";
+                    ActiveStatus.tempString += "\n";
                 }
                 catch (Exception e){
                     ActiveStatus.tempString = "- Don't be alone -";

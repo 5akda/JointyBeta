@@ -33,6 +33,9 @@ public class FeedUI extends AppCompatActivity {
     DatabaseReference jointyDB = FirebaseDatabase.getInstance()
             .getReferenceFromUrl("https://jointy-db.firebaseio.com/eventdata");
 
+    DatabaseReference userDB = FirebaseDatabase.getInstance()
+            .getReferenceFromUrl("https://jointy-db.firebaseio.com/userdata");
+
     private RecyclerView mEventList;
 
     @Override
@@ -89,6 +92,7 @@ public class FeedUI extends AppCompatActivity {
                 (Event.class,R.layout.row_event,EventHolder.class,jointyDB) {
             @Override
             protected void populateViewHolder(EventHolder viewHolder, Event model, int position) {
+                getUserInfo();
                 if(!(model.getHost().equals("Admin"))){
                     viewHolder.setName(model.getName());
                     viewHolder.setLocation(model.getLoaction());
@@ -96,7 +100,10 @@ public class FeedUI extends AppCompatActivity {
                     viewHolder.setHost("Host: "+model.getHost());
                     viewHolder.setDescription(model.getDescription());
                     viewHolder.setContact("LINE ID: "+model.getContact());
-                    if(!(model.getHost().equals(ActiveStatus.username) || (model.getHost().equals("Admin")))){
+
+                    boolean isJoined = haveJoined(model.getCode());
+
+                    if(!model.getHost().equals(ActiveStatus.username) && !isJoined){
                         viewHolder.configClickCard(model);
                     }
                 }
@@ -148,17 +155,19 @@ public class FeedUI extends AppCompatActivity {
             holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseReference jointyDB;
-                    jointyDB = FirebaseDatabase.getInstance().getReference();
-                    ActiveStatus.eventList = ActiveStatus.eventList+model.getCode()+"x";
-                    jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
-                    Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    if(!ActiveStatus.tempCode.equals(model.getCode()) && ActiveStatus.arrayOfEvents.length<4){
+                        DatabaseReference jointyDB;
+                        jointyDB = FirebaseDatabase.getInstance().getReference();
+                        ActiveStatus.eventList = ActiveStatus.eventList+model.getCode()+"x";
+                        jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
+                        ActiveStatus.tempCode = model.getCode();
+                        Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
 
                 }
 
             });
-
 
         }
 
@@ -182,6 +191,31 @@ public class FeedUI extends AppCompatActivity {
 
         backPressTime = System.currentTimeMillis();
 
+    }
+
+    private boolean haveJoined(String code){
+        int num = ActiveStatus.arrayOfEvents.length;
+        for(int i=0; i<num; i++){
+            if(code.equals(ActiveStatus.arrayOfEvents[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void getUserInfo(){
+        userDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ActiveStatus.eventList = dataSnapshot.child(ActiveStatus.username).child("eventList").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        ActiveStatus.arrayOfEvents = ActiveStatus.eventList.split("x");
     }
 
 }
