@@ -1,8 +1,10 @@
 package com.parzival48.jointy;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +23,7 @@ public class ProfileUI extends AppCompatActivity {
 
     DatabaseReference jointyDB = FirebaseDatabase.getInstance().getReference();
     String eventInfo = "";
+    String loading = "Loading ...";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +31,7 @@ public class ProfileUI extends AppCompatActivity {
         setContentView(R.layout.activity_profile_ui);
 
         getUserInfo();
-
-
+        showTextView();
 
         //Bottom Navigation Config
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
@@ -62,7 +64,9 @@ public class ProfileUI extends AppCompatActivity {
                 return false;
             }
         });
+
     }
+
 
     //Config Press Back Again To Logout
     private long backPressTime;
@@ -99,7 +103,6 @@ public class ProfileUI extends AppCompatActivity {
             }
         });
         ActiveStatus.arrayOfEvents = ActiveStatus.eventList.split("x");
-        showTextView();
 
     }
 
@@ -110,16 +113,22 @@ public class ProfileUI extends AppCompatActivity {
         TextView lineid = (TextView)findViewById(R.id.profile_line);
         lineid.setText(ActiveStatus.lineid);
         TextView event = (TextView)findViewById(R.id.profile_event);
-        event.setText("Loading ...");
+        event.setText(loading);
 
         String myEvents = "";
         int num = ActiveStatus.arrayOfEvents.length;
         for(int i=0; i<num; i++){
             myEvents = myEvents+eventDescription(ActiveStatus.arrayOfEvents[i]);
-            Toast.makeText(ProfileUI.this,ActiveStatus.arrayOfEvents[i],Toast.LENGTH_LONG).show();
+            ActiveStatus.tempString = "";
         }
-
-        event.setText(myEvents);
+        if(!(myEvents.equals("null") || myEvents.length()>365)){
+            event.setText(myEvents);
+        }
+        else{
+            event.setText(loading);
+            Toast.makeText(ProfileUI.this,"Unstable Internet Connection"
+                    ,Toast.LENGTH_LONG).show();
+        }
     }
 
     //Get Event Description
@@ -127,22 +136,28 @@ public class ProfileUI extends AppCompatActivity {
         jointyDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                eventInfo += dataSnapshot.child("eventdata").child("2").child("name").getValue().toString();
-                eventInfo += "\n    ";
-                eventInfo += dataSnapshot.child("eventdata").child("2").child("loaction").getValue().toString();
-                eventInfo += "\n    ";
-                eventInfo += dataSnapshot.child("eventdata").child("2").child("date").getValue().toString();
-                eventInfo += " - ";
-                eventInfo += dataSnapshot.child("eventdata").child("2").child("time").getValue().toString();
-                eventInfo += "\n";
+                try{
+                    ActiveStatus.tempString += dataSnapshot.child("eventdata").child(code).child("name").getValue().toString();
+                    ActiveStatus.tempString += "\n    ";
+                    ActiveStatus.tempString += dataSnapshot.child("eventdata").child(code).child("loaction").getValue().toString();
+                    ActiveStatus.tempString += "\n    ";
+                    ActiveStatus.tempString += dataSnapshot.child("eventdata").child(code).child("date").getValue().toString();
+                    ActiveStatus.tempString += " - ";
+                    ActiveStatus.tempString += dataSnapshot.child("eventdata").child(code).child("time").getValue().toString();
+                    ActiveStatus.tempString += "\n\n";
+                }
+                catch (Exception e){
+                    ActiveStatus.tempString = "- Don't be alone -";
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(ProfileUI.this,"Unstable Internet Connection"
+                        ,Toast.LENGTH_LONG).show();
             }
         });
-        return(eventInfo);
+        return(ActiveStatus.tempString);
 
     }
 

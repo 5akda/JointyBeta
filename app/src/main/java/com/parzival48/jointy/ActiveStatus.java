@@ -10,4 +10,5 @@ public class ActiveStatus {
     public static Event eInfo;
     public static String tempEventName;
     public static String[] arrayOfEvents;
+    public static String tempString;
 }

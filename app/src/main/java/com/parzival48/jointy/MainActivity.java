@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        Toast.makeText(MainActivity.this,"Unstable Internet Connection"
+                                ,Toast.LENGTH_LONG).show();
                     }
                 });
                 if(userExist && match(password,serverPass)){
@@ -106,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
         else{
             return false;
         }
+    }
+
+    private void clearGlobalVariable(){
+        ActiveStatus.tempString = null;
+        ActiveStatus.tempEventName = null;
+        ActiveStatus.arrayOfEvents = null;
     }
 
 }
