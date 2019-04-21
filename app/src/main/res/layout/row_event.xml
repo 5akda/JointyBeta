@@ -4,15 +4,17 @@
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="12dp"
     android:elevation="60dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="#00000000">
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="#3F3F3F">
 
     <LinearLayout
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="#33000000"
+        android:background="#D68917"
         android:orientation="vertical">
 
         <TextView
@@ -22,7 +24,7 @@
             android:layout_marginLeft="9dp"
             android:layout_marginTop="5dp"
             android:text="After Lunch Karaoke"
-            android:textColor="#E75151"
+            android:textColor="#000000"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -34,7 +36,8 @@
             android:layout_marginTop="1dp"
             android:text="Event Information here"
             android:textColor="#ffffff"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/elocation"
@@ -44,7 +47,7 @@
             android:layout_marginTop="1dp"
             android:text="Mega Bangna"
             android:textAlignment="textStart"
-            android:textColor="#FFC107"
+            android:textColor="#000000"
             android:textSize="20dp" />
 
         <TextView
@@ -54,7 +57,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="1dp"
             android:text="MM/DD/YY - HH:MM"
-            android:textColor="#FFC107"
+            android:textColor="#000000"
             android:textSize="20dp" />
 
 
@@ -67,7 +70,7 @@
             android:layout_marginRight="10dp"
             android:text="Host: User6969"
             android:textAlignment="textEnd"
-            android:textColor="#FFFFFF"
+            android:textColor="#ffffff"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -80,7 +83,7 @@
             android:layout_marginRight="10dp"
             android:text="LINE ID: line1234"
             android:textAlignment="textEnd"
-            android:textColor="#FFFFFF"
+            android:textColor="#ffffff"
             android:textSize="16dp"
             android:textStyle="bold" />
 

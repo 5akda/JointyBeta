@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbg"
+    android:background="#2A3744"
     tools:context=".SignUpUI">
 
     <EditText
@@ -108,7 +108,7 @@
         android:layout_marginTop="20dp"
         android:text="[ Sign Up ]"
         android:textAlignment="center"
-        android:textColor="#ffFFC115"
+        android:textColor="@color/green"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -168,7 +168,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="30dp"
-        android:background="#ffFFC115"
+        android:background="@color/yellow"
         android:text="Create Account"
         android:textSize="16sp" />
 

@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,6 +101,7 @@ public class FeedUI extends AppCompatActivity {
                     viewHolder.setHost("Host: "+model.getHost());
                     viewHolder.setDescription(model.getDescription());
                     viewHolder.setContact("LINE ID: "+model.getContact());
+                    viewHolder.setColor(model.getCode());
 
                     boolean isJoined = haveJoined(model.getCode());
 
@@ -124,6 +126,15 @@ public class FeedUI extends AppCompatActivity {
             TextView t = (TextView)mView.findViewById(R.id.ename);
             t.setText(name);
         }
+
+
+        public void setColor(String code){
+            int i = Integer.valueOf(code)%4;
+            int[] color = {R.color.card1,R.color.card2,R.color.card3,R.color.card4};
+            LinearLayout card = (LinearLayout)mView.findViewById(R.id.cardView);
+            card.setBackgroundResource(color[i]);
+        }
+
 
         public void setLocation(String location){
             TextView t = (TextView)mView.findViewById(R.id.elocation);

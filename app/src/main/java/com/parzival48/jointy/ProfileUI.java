@@ -116,13 +116,9 @@ public class ProfileUI extends AppCompatActivity {
 
         String myEvents = "";
         int num = ActiveStatus.arrayOfEvents.length;
-        String same = "";
         for(int i=0; i<num; i++){
-            if(!same.equals(ActiveStatus.arrayOfEvents[i])){
-                myEvents = myEvents+eventDescription(ActiveStatus.arrayOfEvents[i]);
-                ActiveStatus.tempString = "";
-                same = ActiveStatus.arrayOfEvents[i];
-            }
+            myEvents = myEvents+eventDescription(ActiveStatus.arrayOfEvents[i]);
+            ActiveStatus.tempString = "";
         }
         if(!myEvents.equals("null") && myEvents.length()<365){
             event.setText(myEvents);

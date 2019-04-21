@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbg"
+    android:background="#2A3744"
     tools:context=".SignUpUI">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:layout_marginTop="20dp"
             android:text="[ Profile ]"
             android:textAlignment="center"
-            android:textColor="#ffFFC115"
+            android:textColor="@color/green"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
             android:text="parzival48"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -84,7 +84,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
             android:text="sakda-apple"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -99,12 +99,13 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="30dp"
             android:text="#"
-            android:textColor="#ffffff"
+            android:textColor="@color/yellow"
             android:textSize="16sp"
             android:textStyle="bold" />
 
 
     </RelativeLayout>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -114,7 +115,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:background="#C5C5C5"
+        android:background="#467961"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
