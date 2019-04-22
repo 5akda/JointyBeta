@@ -129,8 +129,8 @@ public class FeedUI extends AppCompatActivity {
 
 
         public void setColor(String code){
-            int i = Integer.valueOf(code)%4;
-            int[] color = {R.color.card1,R.color.card2,R.color.card3,R.color.card4};
+            int i = Integer.valueOf(code)%3;
+            int[] color = {R.color.card1,R.color.card2,R.color.card3,};
             LinearLayout card = (LinearLayout)mView.findViewById(R.id.cardView);
             card.setBackgroundResource(color[i]);
         }
