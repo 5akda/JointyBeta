@@ -139,10 +139,17 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                     case R.id.nav_create:
                         break;
 
-                    case R.id.nav_profile:
-                        Intent i3 = new Intent(CreateEventUI.this,ProfileUI.class);
+                    case R.id.nav_search:
+                        Intent i3 = new Intent(CreateEventUI.this,SearchLineUI.class);
                         i3.setFlags(i3.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startActivity(i3);
+                        overridePendingTransition(0,0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent i4 = new Intent(CreateEventUI.this,ProfileUI.class);
+                        i4.setFlags(i4.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(i4);
                         overridePendingTransition(0,0);
                         break;
 

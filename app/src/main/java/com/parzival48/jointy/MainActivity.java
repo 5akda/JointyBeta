@@ -35,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
         txtusername = (EditText)findViewById(R.id.txtUsername);
         txtpassword = (EditText)findViewById(R.id.txtPassword);
 
+
         Button signin = (Button)findViewById(R.id.btSignin);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.make(v, "Loading ...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                clearGlobalVariable();
 
                 username = txtusername.getText().toString().trim();
                 password = txtpassword.getText().toString().trim();

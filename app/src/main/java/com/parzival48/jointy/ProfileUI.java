@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class ProfileUI extends AppCompatActivity {
         //Bottom Navigation Config
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(2);
+        MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -54,6 +55,13 @@ public class ProfileUI extends AppCompatActivity {
                         Intent i2 = new Intent(ProfileUI.this,CreateEventUI.class);
                         i2.setFlags(i2.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startActivity(i2);
+                        overridePendingTransition(0,0);
+                        break;
+
+                    case R.id.nav_search:
+                        Intent i3 = new Intent(ProfileUI.this,SearchLineUI.class);
+                        i3.setFlags(i3.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(i3);
                         overridePendingTransition(0,0);
                         break;
 

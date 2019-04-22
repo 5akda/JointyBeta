@@ -1,5 +1,6 @@
 package com.parzival48.jointy;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,10 +67,17 @@ public class FeedUI extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         break;
 
-                    case R.id.nav_profile:
-                        Intent i3 = new Intent(FeedUI.this,ProfileUI.class);
+                    case R.id.nav_search:
+                        Intent i3 = new Intent(FeedUI.this,SearchLineUI.class);
                         i3.setFlags(i3.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
                         startActivity(i3);
+                        overridePendingTransition(0,0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent i4 = new Intent(FeedUI.this,ProfileUI.class);
+                        i4.setFlags(i4.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(i4);
                         overridePendingTransition(0,0);
                         break;
 
@@ -101,6 +110,7 @@ public class FeedUI extends AppCompatActivity {
                     viewHolder.setHost("Host: "+model.getHost());
                     viewHolder.setDescription(model.getDescription());
                     viewHolder.setContact("LINE ID: "+model.getContact());
+                    viewHolder.setMember("Participants: "+model.getParticipant());
                     viewHolder.setColor(model.getCode());
 
                     boolean isJoined = haveJoined(model.getCode());
@@ -161,6 +171,11 @@ public class FeedUI extends AppCompatActivity {
             t.setText(contact);
         }
 
+        public void setMember(String member){
+            TextView t = (TextView)mView.findViewById(R.id.emember);
+            t.setText(member);
+        }
+
         public void configClickCard(final Event model){
             CardView holder = (CardView)mView.findViewById(R.id.parent_layout);
             holder.setOnClickListener(new View.OnClickListener() {
@@ -172,14 +187,15 @@ public class FeedUI extends AppCompatActivity {
                         ActiveStatus.eventList = ActiveStatus.eventList+model.getCode()+"x";
                         jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
                         ActiveStatus.tempCode = model.getCode();
+                        String member = model.getParticipant();
+                        member = member + ActiveStatus.username + "  ";
+                        jointyDB.child("eventdata").child(model.getCode()).child("participant").setValue(member);
                         Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
-
                 }
 
             });
-
         }
 
     }
@@ -228,5 +244,6 @@ public class FeedUI extends AppCompatActivity {
         });
         ActiveStatus.arrayOfEvents = ActiveStatus.eventList.split("x");
     }
+
 
 }

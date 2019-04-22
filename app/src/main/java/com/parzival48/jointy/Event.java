@@ -10,6 +10,7 @@ public class Event {
     private String contact;
     private String[] member;
     private String code;
+    private String participant;
 
     public Event() {
     }
@@ -92,5 +93,13 @@ public class Event {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(String participant) {
+        this.participant = participant;
     }
 }
