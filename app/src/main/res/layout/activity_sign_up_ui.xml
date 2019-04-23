@@ -168,7 +168,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="30dp"
-        android:background="@color/colorAccent"
+        android:background="@color/yellow"
         android:text="Create Account"
         android:textSize="16sp" />
 
