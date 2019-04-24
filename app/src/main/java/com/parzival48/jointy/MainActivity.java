@@ -35,17 +35,19 @@ public class MainActivity extends AppCompatActivity {
         txtusername = (EditText)findViewById(R.id.txtUsername);
         txtpassword = (EditText)findViewById(R.id.txtPassword);
 
-
         Button signin = (Button)findViewById(R.id.btSignin);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Loading ...", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                final Toast tLoad = Toast.makeText(MainActivity.this,"Loading ...",Toast.LENGTH_SHORT);
+                tLoad.show();
+
                 clearGlobalVariable();
 
                 username = txtusername.getText().toString().trim();
                 password = txtpassword.getText().toString().trim();
+
                 jointyDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -63,31 +65,39 @@ public class MainActivity extends AppCompatActivity {
                             ActiveStatus.eventList = sList;
                             ActiveStatus.username = username;
                             ActiveStatus.lineid = serverLine;
-
                         }
                         catch (Exception e){
-                            serverPass = " ";
+                            serverPass = "";
+                            tLoad.cancel();
+                            Toast.makeText(MainActivity.this,
+                                    "Incorrect username or password",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(MainActivity.this,"Unstable Internet Connection"
-                                ,Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,
+                                "Unstable Internet Connection",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
                 if(userExist && match(password,serverPass)){
                     ActiveStatus.tempCode = "";
                     Intent i = new Intent(MainActivity.this,FeedUI.class);
                     i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    Toast.makeText(MainActivity.this,"Welcome, "+ActiveStatus.username+" !"
-                            ,Toast.LENGTH_LONG).show();
+                    tLoad.cancel();
+                    Toast.makeText(MainActivity.this,
+                            "Welcome, "+ActiveStatus.username+" !",
+                            Toast.LENGTH_LONG).show();
 
                     startActivity(i);
                 }
                 else{
-                    Snackbar.make(v, "Incorrect Username or Password", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    tLoad.cancel();
+                    Toast.makeText(MainActivity.this,
+                            "Incorrect username or password",
+                            Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -117,5 +127,6 @@ public class MainActivity extends AppCompatActivity {
         ActiveStatus.tempEventName = null;
         ActiveStatus.arrayOfEvents = null;
     }
+
 
 }

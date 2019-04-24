@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class FeedUI extends AppCompatActivity {
-
 
     DatabaseReference jointyDB = FirebaseDatabase.getInstance()
             .getReferenceFromUrl("https://jointy-db.firebaseio.com/eventdata");
@@ -181,6 +179,7 @@ public class FeedUI extends AppCompatActivity {
             holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     if(!ActiveStatus.tempCode.equals(model.getCode()) && ActiveStatus.arrayOfEvents.length<4){
                         DatabaseReference jointyDB;
                         jointyDB = FirebaseDatabase.getInstance().getReference();
@@ -190,9 +189,11 @@ public class FeedUI extends AppCompatActivity {
                         String member = model.getParticipant();
                         member = member + ActiveStatus.username + "  ";
                         jointyDB.child("eventdata").child(model.getCode()).child("participant").setValue(member);
+
                         Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
+
                 }
 
             });
