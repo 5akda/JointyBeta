@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/labLogo"
         android:layout_marginTop="2dp"
-        android:text="Let's Go Together"
+        android:text="Let's Go Together (Ver 0.2)"
         android:textAlignment="center"
         android:textColor="#aaffffff"
         android:textSize="14sp" />

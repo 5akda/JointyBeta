@@ -206,15 +206,15 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
     }
 
     // Input Validation
-    private String validE(String nameE, String locatE, String descE){
+    public static String validE(String nameE, String locatE, String descE){
         boolean nam = false,
                 loc = false,
                 des = false;
         if(!nameE.equals(ActiveStatus.tempEventName)){
             nam = (nameE.length()>4 && nameE.length()<31);
         }
-        loc = (nameE.length()>4 && nameE.length()<31);
-        des = (nameE.length()>=0 && nameE.length()<51);
+        loc = (locatE.length()>4 && locatE.length()<31);
+        des = (descE.length()>=0 && descE.length()<51);
 
         if(nam){
             if(loc){
@@ -226,6 +226,11 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
             else return "Please Re-Check Location";
         }
         else return "Please Re-Check Name";
+    }
+
+    public static boolean dateCheck(String date, String time){
+        // Check Here //
+        return true;
     }
 
 }
