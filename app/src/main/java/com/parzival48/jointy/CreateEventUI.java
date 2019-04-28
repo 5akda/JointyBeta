@@ -12,9 +12,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreateEventUI extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -36,6 +40,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
     String date,time;
     String userEventList;
     long numOfEvent;
+    Spinner mSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         txtEventName = (EditText)findViewById(R.id.txtEventName);
         txtLocation = (EditText)findViewById(R.id.txtLocation);
         txtDecription = (EditText)findViewById(R.id.txtDescription);
+
 
         jointyDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,7 +86,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 newEvent.setCode(eventCode);
 
                 String validation = validE(newEvent.getName(),newEvent.getLoaction(),newEvent.getDescription());
-                if(validation.equals("")){
+                if(validation.equals("") && haveSelected(newEvent.getCategory())){
 
                     jointyDB.child("eventdata").child(eventCode).setValue(newEvent);
 
@@ -100,8 +106,32 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
             }
         });
 
+        //category selector
+        mSpinner = (Spinner)findViewById(R.id.cate);
+        String[] catalog = getResources().getStringArray(R.array.category);
+        ArrayAdapter<String> adapterCate = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line,catalog);
+        mSpinner.setAdapter(adapterCate);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==0) newEvent.setCategory("");
+                else if(position>0 && position<3) newEvent.setCategory("0");
+                else if(position>2 && position<6) newEvent.setCategory("1");
+                else if(position>5 && position<9) newEvent.setCategory("2");
+                else if(position>8 && position<12) newEvent.setCategory("3");
+                else if(position>11 && position<14) newEvent.setCategory("4");
+                else newEvent.setCategory("5");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                newEvent.setCategory("");
+            }
+        });
+
         //date picker
-        Button btDate = (Button)findViewById(R.id.btDate);
+        Button btDate = (Button) findViewById(R.id.btDate);
         btDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +139,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 datePicker.show(getSupportFragmentManager(),"date picker");
             }
         });
+
         //time picker
         Button btTime = (Button)findViewById(R.id.btTime);
         btTime.setOnClickListener(new View.OnClickListener() {
@@ -231,6 +262,11 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
     public static boolean dateCheck(String date, String time){
         // Check Here //
         return true;
+    }
+
+    public static boolean haveSelected(String catE){
+        if(catE.equals("")) return false;
+        else return true;
     }
 
 }

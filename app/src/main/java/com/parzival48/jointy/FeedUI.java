@@ -109,7 +109,7 @@ public class FeedUI extends AppCompatActivity {
                     viewHolder.setDescription(model.getDescription());
                     viewHolder.setContact("LINE ID: "+model.getContact());
                     viewHolder.setMember("Participants: "+model.getParticipant());
-                    viewHolder.setColor(model.getCode());
+                    viewHolder.setColor(model.getCategory());
 
                     boolean isJoined = haveJoined(model.getCode());
 
@@ -135,10 +135,14 @@ public class FeedUI extends AppCompatActivity {
             t.setText(name);
         }
 
-
-        public void setColor(String code){
-            int i = Integer.valueOf(code)%3;
-            int[] color = {R.color.card1,R.color.card2,R.color.card3,};
+        public void setColor(String category){
+            int i = Integer.valueOf(category);
+            int[] color = {R.color.cPink,
+                            R.color.cOrange,
+                            R.color.cBlue,
+                            R.color.cGreen,
+                            R.color.cViolet,
+                            R.color.cBrown};
             LinearLayout card = (LinearLayout)mView.findViewById(R.id.cardView);
             card.setBackgroundResource(color[i]);
         }

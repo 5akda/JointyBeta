@@ -32,7 +32,6 @@ public class ProfileUI extends AppCompatActivity {
 
         //Main Works
         getUserInfo();
-        showTextView();
 
         //Bottom Navigation Config
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
@@ -72,6 +71,9 @@ public class ProfileUI extends AppCompatActivity {
                 return false;
             }
         });
+
+        getUserInfo();
+        showTextView();
 
     }
 

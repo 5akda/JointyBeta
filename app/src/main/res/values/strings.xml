@@ -7,4 +7,23 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_jointy_main_ui">jointyMainUI</string>
     <string name="title_activity_temp">temp</string>
+
+    <string-array name="category">
+        <item>- Select Category -</item>
+        <item>Food</item>
+        <item>Drinks</item>
+        <item>Party</item>
+        <item>Music</item>
+        <item>Movie</item>
+        <item>Sport</item>
+        <item>Game</item>
+        <item>Art</item>
+        <item>Study</item>
+        <item>Charity</item>
+        <item>Club</item>
+        <item>Trip</item>
+        <item>Transportation</item>
+        <item>Other</item>
+    </string-array>
+
 </resources>

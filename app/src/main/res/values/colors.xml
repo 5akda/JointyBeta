@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#DD9014</color>
+    <color name="colorPrimary">#20646E</color>
     <color name="colorPrimaryDark">#2A3744</color>
     <color name="colorAccent">#CB4E4E</color>
     <color name="yellow">#EB9F3C</color>
     <color name="blue">#18A276</color>
 
-    <color name="card1">#bbBD4646</color>
-    <color name="card2">#bb6C9738</color>
-    <color name="card3">#bb4A8CA0</color>
+    <color name="cPink">#bbBD4646</color>
+    <color name="cGreen">#BB6C9738</color>
+    <color name="cBlue">#BB3874A8</color>
+    <color name="cViolet">#BB6352AC</color>
+    <color name="cBrown">#BB574332</color>
+    <color name="cOrange">#BBAF7717</color>
+
 
     <color name="green">#39C342</color>
 </resources>
