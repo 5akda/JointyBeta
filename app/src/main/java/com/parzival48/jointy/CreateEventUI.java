@@ -98,8 +98,12 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
 
                     ActiveStatus.tempEventName = newEvent.getName();
                 }
-                else{
+                else if(!validation.equals("")){
                     Snackbar.make(v, validation, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else{
+                    Snackbar.make(v, "Please Select Category", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
 
@@ -259,7 +263,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         else return "Please Re-Check Name";
     }
 
-    public static boolean dateCheck(String date, String time){
+    public static boolean dateCheck(String date){
         // Check Here //
         return true;
     }

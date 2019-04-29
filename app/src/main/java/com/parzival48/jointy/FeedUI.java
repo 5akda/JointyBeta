@@ -251,46 +251,51 @@ public class FeedUI extends AppCompatActivity {
     }
 
     private String convertDate(String d){
-        String date = "";
-        String[] mdy = d.split("/");
-        switch (mdy[0]){
-            case "1":
-                date = mdy[1] + "/Jan/" + mdy[2];
-                break;
-            case "2":
-                date = mdy[1] + "/Feb/" + mdy[2];
-                break;
-            case "3":
-                date = mdy[1] + "/Mar/" + mdy[2];
-                break;
-            case "4":
-                date = mdy[1] + "/Apr/" + mdy[2];
-                break;
-            case "5":
-                date = mdy[1] + "/May/" + mdy[2];
-                break;
-            case "6":
-                date = mdy[1] + "/Jun/" + mdy[2];
-                break;
-            case "7":
-                date = mdy[1] + "/Jul/" + mdy[2];
-                break;
-            case "8":
-                date = mdy[1] + "/Aug/" + mdy[2];
-                break;
-            case "9":
-                date = mdy[1] + "/Sep/" + mdy[2];
-                break;
-            case "10":
-                date = mdy[1] + "/Oct/" + mdy[2];
-                break;
-            case "11":
-                date = mdy[1] + "/Nov/" + mdy[2];
-                break;
-            case "12":
-                date = mdy[1] + "/Dec/" + mdy[2];
-                break;
+        try{
+            String date = "";
+            String[] mdy = d.split("/");
+            switch (mdy[0]){
+                case "1":
+                    date = mdy[1] + "/Jan/" + mdy[2];
+                    break;
+                case "2":
+                    date = mdy[1] + "/Feb/" + mdy[2];
+                    break;
+                case "3":
+                    date = mdy[1] + "/Mar/" + mdy[2];
+                    break;
+                case "4":
+                    date = mdy[1] + "/Apr/" + mdy[2];
+                    break;
+                case "5":
+                    date = mdy[1] + "/May/" + mdy[2];
+                    break;
+                case "6":
+                    date = mdy[1] + "/Jun/" + mdy[2];
+                    break;
+                case "7":
+                    date = mdy[1] + "/Jul/" + mdy[2];
+                    break;
+                case "8":
+                    date = mdy[1] + "/Aug/" + mdy[2];
+                    break;
+                case "9":
+                    date = mdy[1] + "/Sep/" + mdy[2];
+                    break;
+                case "10":
+                    date = mdy[1] + "/Oct/" + mdy[2];
+                    break;
+                case "11":
+                    date = mdy[1] + "/Nov/" + mdy[2];
+                    break;
+                case "12":
+                    date = mdy[1] + "/Dec/" + mdy[2];
+                    break;
+            }
+            return date;
         }
-        return date;
+        catch(Exception e){
+            return "Loading ...";
+        }
     }
 }
