@@ -171,7 +171,7 @@
             android:layout_marginStart="11dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/btDate"
-            android:text="MM/DD/YY"
+            android:text="DD/MM/YYYY"
             android:textAlignment="textStart"
             android:textColor="#aaffffff"
             android:textSize="20sp" />

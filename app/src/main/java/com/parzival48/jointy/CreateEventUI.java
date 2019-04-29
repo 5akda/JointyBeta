@@ -29,8 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateEventUI extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -41,6 +43,11 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
     String userEventList;
     long numOfEvent;
     Spinner mSpinner;
+    Date dateSelect;
+    boolean goodDate = false;
+    boolean isToday = false;
+    boolean goodTime = false;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +91,10 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                 newEvent.setHost(ActiveStatus.username);
                 newEvent.setContact(ActiveStatus.lineid);
                 newEvent.setCode(eventCode);
+                newEvent.setParticipant("");
 
                 String validation = validE(newEvent.getName(),newEvent.getLoaction(),newEvent.getDescription());
-                if(validation.equals("") && haveSelected(newEvent.getCategory())){
+                if(validation.equals("") && haveSelected(newEvent.getCategory()) && goodDate && goodTime){
 
                     jointyDB.child("eventdata").child(eventCode).setValue(newEvent);
 
@@ -102,8 +110,8 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                     Snackbar.make(v, validation, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-                else{
-                    Snackbar.make(v, "Please Select Category", Snackbar.LENGTH_LONG)
+                else if(!goodTime && !goodDate){
+                    Snackbar.make(v, "Please Re-Check Date & Time", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
 
@@ -200,11 +208,16 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        String todayDate = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(c.getTime());
-        String currentDate = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(c.getTime());
+        c.set(Calendar.HOUR_OF_DAY,0);
+        c.set(Calendar.MINUTE,0);
+        c.set(Calendar.SECOND,0);
+        c.set(Calendar.MILLISECOND,0);
+        String currentDate = df.format(c.getTime());
         TextView txtDate = (TextView)findViewById(R.id.dateView);
         txtDate.setText(currentDate);
         date = txtDate.getText().toString();
+        dateSelect = c.getTime();
+        goodDate = dateCheck(dateSelect);
     }
 
     @Override
@@ -217,6 +230,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
             txtTime.setText(hourOfDay+":"+minute);
         }
         time = txtTime.getText().toString().trim();
+        goodTime = timeCheck(hourOfDay, minute);
     }
 
     //Config Press Back Again To Logout
@@ -263,8 +277,41 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         else return "Please Re-Check Name";
     }
 
-    public static boolean dateCheck(String date){
-        // Check Here //
+    public boolean dateCheck(Date dateSelect){
+        Calendar c2 = Calendar.getInstance();
+        c2.set(Calendar.HOUR_OF_DAY,0);
+        c2.set(Calendar.MINUTE,0);
+        c2.set(Calendar.SECOND,0);
+        c2.set(Calendar.MILLISECOND,0);
+        Date todayDate = c2.getTime();
+
+        if (dateSelect.compareTo(todayDate) < 0) // dateSelect is before todayDate
+        {
+           Toast.makeText(CreateEventUI.this,"Please Re-Check Date",Toast.LENGTH_LONG).show();
+           return false;
+        }
+        if (dateSelect.compareTo(todayDate) == 0)
+        {
+            isToday = true;
+        }
+        return true;
+    }
+
+    public boolean timeCheck(int hourOfDay, int minute){
+        Calendar currentTime = Calendar.getInstance();
+        int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = currentTime.get(Calendar.MINUTE);
+
+        if (!goodDate)
+        {
+            Toast.makeText(CreateEventUI.this,"Please Re-Check Date",Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (isToday && currentHour >= hourOfDay && currentMinute >= minute) // dateSelect is before todayDate
+        {
+            Toast.makeText(CreateEventUI.this,"Please Re-Check Time",Toast.LENGTH_LONG).show();
+            return false;
+        }
         return true;
     }
 
