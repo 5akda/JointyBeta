@@ -1,6 +1,7 @@
 package com.parzival48.jointy;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
                 clearGlobalVariable();
 
-                username = txtusername.getText().toString().trim();
-                password = txtpassword.getText().toString().trim();
+                username = txtusername.getText().toString();
+                password = txtpassword.getText().toString();
 
                 jointyDB.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -80,23 +81,29 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-                if(userExist && match(password,serverPass)){
-                    ActiveStatus.tempCode = "";
-                    Intent i = new Intent(MainActivity.this,FeedUI.class);
-                    i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    tLoad.cancel();
-                    Toast.makeText(MainActivity.this,
-                            "Welcome, "+ActiveStatus.username+" !",
-                            Toast.LENGTH_LONG).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(userExist && match(password,serverPass)){
+                            ActiveStatus.tempCode = "";
+                            Intent i = new Intent(MainActivity.this,FeedUI.class);
+                            i.setFlags(i.getFlags()|Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            tLoad.cancel();
+                            Toast.makeText(MainActivity.this,
+                                    "Welcome, "+ActiveStatus.username+" !",
+                                    Toast.LENGTH_LONG).show();
 
-                    startActivity(i);
-                }
-                else{
-                    tLoad.cancel();
-                    Toast.makeText(MainActivity.this,
-                            "Incorrect username or password",
-                            Toast.LENGTH_LONG).show();
-                }
+                            startActivity(i);
+                        }
+                        else{
+                            tLoad.cancel();
+                            Toast.makeText(MainActivity.this,
+                                    "Incorrect username or password",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },200);
             }
         });
     }

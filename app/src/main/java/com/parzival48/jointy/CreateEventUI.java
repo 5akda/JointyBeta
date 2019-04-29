@@ -242,6 +242,9 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         if(backPressTime+2000 > System.currentTimeMillis()){
             backToast.cancel();
             super.onBackPressed();
+            ActiveStatus.username = null;
+            ActiveStatus.lineid = null;
+            ActiveStatus.eventList = null;
             return;
         }
         else{
