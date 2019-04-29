@@ -110,7 +110,7 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
                     Snackbar.make(v, validation, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-                else if(!goodTime && !goodDate){
+                else if(!goodTime || !goodDate){
                     Snackbar.make(v, "Please Re-Check Date & Time", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
