@@ -125,6 +125,4 @@ public class MainActivity extends AppCompatActivity {
         ActiveStatus.tempEventName = null;
         ActiveStatus.arrayOfEvents = null;
     }
-
-
 }
