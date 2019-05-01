@@ -30,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FeedUI extends AppCompatActivity {
 
@@ -241,11 +243,6 @@ public class FeedUI extends AppCompatActivity {
 
 
 
-
-//                    TextView t5 = (TextView)mView.findViewById(R.id.cemember);
-//                    t5.setText(model.getMember());
-
-
                     Button confirm;
                     Button cancel;
 
@@ -275,6 +272,10 @@ public class FeedUI extends AppCompatActivity {
                                 jointyDB.child("eventdata").child(model.getCode()).child("participant").setValue(member);
 
                                 Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                            }
+                            else if(!joinable(model.getDate(),model.getTime())){
+                                Snackbar.make(v, "This event has expired.", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                             }
 
@@ -393,6 +394,25 @@ public class FeedUI extends AppCompatActivity {
         }
     }
 
+    public static boolean joinable(String eventDate,String eventTime){
+        Calendar c = Calendar.getInstance();
+        String subEventDate[] = eventDate.split("/");
+        String subEventTime[] = eventTime.split(":");
+        Calendar c2 = Calendar.getInstance();
+        c2.set(Calendar.HOUR_OF_DAY,Integer.parseInt(subEventTime[0]));
+        c2.set(Calendar.MINUTE,Integer.parseInt(subEventTime[1]));
+        c2.set(Calendar.SECOND,0);
+        c2.set(Calendar.MILLISECOND,0);
+        c2.set(Calendar.DAY_OF_MONTH,Integer.parseInt(subEventDate[0]));
+        c2.set(Calendar.MONTH,Integer.parseInt(subEventDate[1])-1);
+        c2.set(Calendar.YEAR,Integer.parseInt(subEventDate[2]));
 
+        Date d = c.getTime();
+        Date d2 = c2.getTime();
+        if (d2.compareTo(d) > 0) {
+            return true;
+        }
+        return false;
+    }
 
 }
