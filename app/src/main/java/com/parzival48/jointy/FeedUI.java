@@ -1,6 +1,7 @@
 package com.parzival48.jointy;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -40,12 +41,15 @@ public class FeedUI extends AppCompatActivity {
 
     private RecyclerView mEventList;
 
+    Dialog dialog;
+    static boolean isConfirm = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_ui);
 
-
+        dialog = new Dialog(this);
         //Bottom Navigation Config
         BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.navigation);
         Menu menu = bottomNavigationView.getMenu();
@@ -115,13 +119,14 @@ public class FeedUI extends AppCompatActivity {
                     boolean isJoined = haveJoined(model.getCode());
 
                     if(!model.getHost().equals(ActiveStatus.username) && !isJoined){
-                        viewHolder.configClickCard(model);
+                        viewHolder.configClickCard(model,dialog);
                     }
                 }
             }
         };
         mEventList.setAdapter(firebaseRecyclerAdapter);
     }
+
 
     public static class EventHolder extends RecyclerView.ViewHolder {
         View mView;
@@ -186,25 +191,98 @@ public class FeedUI extends AppCompatActivity {
             t.setText(member);
         }
 
-        public void configClickCard(final Event model){
-            CardView holder = (CardView)mView.findViewById(R.id.parent_layout);
+        public void configClickCard(final Event model,final Dialog dialog){
+
+
+            final CardView holder = (CardView)mView.findViewById(R.id.parent_layout);
             holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(!ActiveStatus.tempCode.equals(model.getCode()) && ActiveStatus.arrayOfEvents.length<4){
-                        DatabaseReference jointyDB;
-                        jointyDB = FirebaseDatabase.getInstance().getReference();
-                        ActiveStatus.eventList = ActiveStatus.eventList+model.getCode()+"x";
-                        jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
-                        ActiveStatus.tempCode = model.getCode();
-                        String member = model.getParticipant();
-                        member = member + ActiveStatus.username + "  ";
-                        jointyDB.child("eventdata").child(model.getCode()).child("participant").setValue(member);
 
-                        Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
+                    int i = Integer.valueOf(model.getCategory());
+                    int[] color = {R.color.cPink,
+                            R.color.cOrange,
+                            R.color.cBlue,
+                            R.color.cGreen,
+                            R.color.cViolet,
+                            R.color.cBrown};
+                    int[] pics = {R.drawable.type0,
+                            R.drawable.type1,
+                            R.drawable.type2,
+                            R.drawable.type3,
+                            R.drawable.type4,
+                            R.drawable.type5};
+
+                    dialog.setContentView(R.layout.custompopup);
+
+                    LinearLayout pop = (LinearLayout)dialog.findViewById(R.id.popstat);
+                    ImageView img = (ImageView)dialog.findViewById(R.id.cimage);
+                    pop.setBackgroundResource(color[i]);
+                    img.setImageResource(pics[i]);
+
+
+
+                    TextView t = (TextView)dialog.findViewById(R.id.cename);
+                    t.setText(model.getName());
+
+                    TextView t1 = (TextView)dialog.findViewById(R.id.celocation);
+                    t1.setText(model.getLoaction());
+
+                    TextView t2 = (TextView)dialog.findViewById(R.id.cedate);
+                    t2.setText(model.getDate()+" - "+model.getTime());
+
+                    TextView t3 = (TextView)dialog.findViewById(R.id.cehost);
+                    t3.setText("Creator: " + model.getHost());
+
+                    TextView t4 = (TextView)dialog.findViewById(R.id.cedescription);
+                    t4.setText(model.getDescription());
+
+
+
+
+
+//                    TextView t5 = (TextView)mView.findViewById(R.id.cemember);
+//                    t5.setText(model.getMember());
+
+
+                    Button confirm;
+                    Button cancel;
+
+                    confirm = (Button) dialog.findViewById(R.id.button11);
+                    cancel = (Button) dialog.findViewById(R.id.button12);
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+
+
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(!ActiveStatus.tempCode.equals(model.getCode()) && ActiveStatus.arrayOfEvents.length<4){
+                                DatabaseReference jointyDB;
+                                jointyDB = FirebaseDatabase.getInstance().getReference();
+                                ActiveStatus.eventList = ActiveStatus.eventList + model.getCode() + "x";
+                                jointyDB.child("userdata").child(ActiveStatus.username).child("eventList").setValue(ActiveStatus.eventList);
+                                ActiveStatus.tempCode = model.getCode();
+                                String member = model.getParticipant();
+                                member = member + ActiveStatus.username + "  ";
+                                jointyDB.child("eventdata").child(model.getCode()).child("participant").setValue(member);
+
+                                Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                            }
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
 
                 }
 
@@ -314,4 +392,7 @@ public class FeedUI extends AppCompatActivity {
             return "Loading ...";
         }
     }
+
+
+
 }
