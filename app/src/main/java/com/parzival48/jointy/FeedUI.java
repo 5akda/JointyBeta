@@ -28,7 +28,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class FeedUI extends AppCompatActivity {
 
@@ -114,7 +120,8 @@ public class FeedUI extends AppCompatActivity {
 
                     boolean isJoined = haveJoined(model.getCode());
 
-                    if(!model.getHost().equals(ActiveStatus.username) && !isJoined){
+
+                    if(!model.getHost().equals(ActiveStatus.username) && !isJoined ){
                         viewHolder.configClickCard(model);
                     }
                 }
@@ -187,12 +194,13 @@ public class FeedUI extends AppCompatActivity {
         }
 
         public void configClickCard(final Event model){
+
             CardView holder = (CardView)mView.findViewById(R.id.parent_layout);
             holder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!ActiveStatus.tempCode.equals(model.getCode()) && ActiveStatus.arrayOfEvents.length<4 && joinable(model.getDate(),model.getTime())){
 
-                    if(!ActiveStatus.tempCode.equals(model.getCode()) && ActiveStatus.arrayOfEvents.length<4){
                         DatabaseReference jointyDB;
                         jointyDB = FirebaseDatabase.getInstance().getReference();
                         ActiveStatus.eventList = ActiveStatus.eventList+model.getCode()+"x";
@@ -203,6 +211,10 @@ public class FeedUI extends AppCompatActivity {
                         jointyDB.child("eventdata").child(model.getCode()).child("participant").setValue(member);
 
                         Snackbar.make(v, "Joined !", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    else if(!joinable(model.getDate(),model.getTime())){
+                        Snackbar.make(v, "This event has expired.", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
 
@@ -313,5 +325,29 @@ public class FeedUI extends AppCompatActivity {
         catch(Exception e){
             return "Loading ...";
         }
+    }
+
+    public static boolean joinable(String eventDate,String eventTime){
+        Calendar c = Calendar.getInstance();
+        String subEventDate[] = eventDate.split("/");
+        String subEventTime[] = eventTime.split(":");
+        Calendar c2 = Calendar.getInstance();
+        c2.set(Calendar.HOUR_OF_DAY,Integer.parseInt(subEventTime[0]));
+        c2.set(Calendar.MINUTE,Integer.parseInt(subEventTime[1]));
+        c2.set(Calendar.SECOND,0);
+        c2.set(Calendar.MILLISECOND,0);
+        c2.set(Calendar.DAY_OF_MONTH,Integer.parseInt(subEventDate[0]));
+        c2.set(Calendar.MONTH,Integer.parseInt(subEventDate[1])-1);
+        c2.set(Calendar.YEAR,Integer.parseInt(subEventDate[2]));
+
+        Date d = c.getTime();
+        Date d2 = c2.getTime();
+        if (d2.compareTo(d) > 0) {
+            return true;
+        }
+        return false;
+
+
+
     }
 }

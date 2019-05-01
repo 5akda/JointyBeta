@@ -226,6 +226,9 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         if(minute == 0){
             txtTime.setText(hourOfDay+":00");
         }
+        else if(minute<10){
+            txtTime.setText(hourOfDay+":0"+minute);
+        }
         else{
             txtTime.setText(hourOfDay+":"+minute);
         }
@@ -287,7 +290,6 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         c2.set(Calendar.SECOND,0);
         c2.set(Calendar.MILLISECOND,0);
         Date todayDate = c2.getTime();
-
         if (dateSelect.compareTo(todayDate) < 0) // dateSelect is before todayDate
         {
            Toast.makeText(CreateEventUI.this,"Please Re-Check Date",Toast.LENGTH_LONG).show();
@@ -296,6 +298,14 @@ public class CreateEventUI extends AppCompatActivity implements DatePickerDialog
         if (dateSelect.compareTo(todayDate) == 0)
         {
             isToday = true;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        String y2 = sdf.format(todayDate);
+        String y = sdf.format(dateSelect);
+        if (Integer.parseInt(y)>Integer.parseInt(y2))
+        {
+            Toast.makeText(CreateEventUI.this,"Please Re-Check Date",Toast.LENGTH_LONG).show();
+            return false;
         }
         return true;
     }
