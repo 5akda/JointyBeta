@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -108,7 +109,7 @@ public class FeedUI extends AppCompatActivity {
                     viewHolder.setHost("Host: "+model.getHost());
                     viewHolder.setDescription(model.getDescription());
                     viewHolder.setContact("LINE ID: "+model.getContact());
-                    viewHolder.setMember("Participants: "+model.getParticipant());
+                    viewHolder.setMember("With: "+model.getParticipant());
                     viewHolder.setColor(model.getCategory());
 
                     boolean isJoined = haveJoined(model.getCode());
@@ -143,8 +144,16 @@ public class FeedUI extends AppCompatActivity {
                             R.color.cGreen,
                             R.color.cViolet,
                             R.color.cBrown};
+            int[] pics = {R.drawable.type0,
+                    R.drawable.type1,
+                    R.drawable.type2,
+                    R.drawable.type3,
+                    R.drawable.type4,
+                    R.drawable.type5};
             LinearLayout card = (LinearLayout)mView.findViewById(R.id.cardView);
+            ImageView img = (ImageView)mView.findViewById(R.id.image);
             card.setBackgroundResource(color[i]);
+            img.setImageResource(pics[i]);
         }
 
 
@@ -169,8 +178,7 @@ public class FeedUI extends AppCompatActivity {
         }
 
         public void setContact(String contact){
-            TextView t = (TextView)mView.findViewById(R.id.econtact);
-            t.setText(contact);
+            // Deleted
         }
 
         public void setMember(String member){

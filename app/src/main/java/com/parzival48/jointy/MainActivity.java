@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         }
                     }
-                },200);
+                },888);
             }
         });
     }
